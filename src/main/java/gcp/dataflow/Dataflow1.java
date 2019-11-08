@@ -6,11 +6,12 @@ import org.apache.beam.sdk.io.gcp.pubsub.PubsubIO;
 import org.apache.beam.sdk.options.*;
 import org.apache.beam.sdk.transforms.windowing.FixedWindows;
 import org.apache.beam.sdk.transforms.windowing.Window;
+import org.apache.beam.sdk.values.PCollection;
 import org.joda.time.Duration;
 
 public class Dataflow1 {
 
-  interface TestOptions extends PipelineOptions{
+  public interface TestOptions extends PipelineOptions{
 
     @Description("The Cloud Pub/Sub topic to read from.")
     @Validation.Required
@@ -43,8 +44,8 @@ public class Dataflow1 {
 
     Pipeline pipeline = Pipeline.create(options);
 
-    pipeline.apply("Read PubSub Messages", PubsubIO.readStrings().fromTopic(options.getInputTopic()))
-           .apply("to gcs", TextIO.write().to(options.getOutputLocation()).withNumShards(options.getWindowSize()));
+    PCollection pCollection=pipeline.apply("Read PubSub Messages", PubsubIO.readStrings().fromTopic(options.getInputTopic()));
+           pCollection.apply("to gcs", TextIO.write().to(options.getOutputLocation()).withNumShards(options.getWindowSize()));
 
     pipeline.run();
 
