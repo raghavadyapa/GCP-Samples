@@ -15,6 +15,6 @@ public interface TestOptions extends PipelineOptions, StreamingOptions {
   void setWindowSize(Integer value);
 
   ValueProvider<String> getOutputLocation();
-  void setOutputLocation(ValueProvider<String> value);
+  void setOutputLocation(ValueProvider<String> values);
 
 }
