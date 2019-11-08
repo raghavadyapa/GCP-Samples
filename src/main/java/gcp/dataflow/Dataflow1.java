@@ -26,7 +26,7 @@ public class Dataflow1 {
     @Description("Path of the output file including its filename prefix.")
     @Validation.Required
     ValueProvider<String> getOutputLocation();
-    void setOutput(ValueProvider<String> value);
+    void setOutputLocation(ValueProvider<String> value);
 
   }
 
